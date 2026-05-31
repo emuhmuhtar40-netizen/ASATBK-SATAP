@@ -1,0 +1,490 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Portal SATBK 2026 - SMPN SATAP 1 PAGERAGEUNG</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap");
+
+      body {
+        font-family: "Inter", sans-serif;
+        background-color: #f8fafc;
+      }
+
+      .glass-card {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      /* Header dengan Background Foto */
+      .hero-custom {
+        position: relative;
+        background-image: url("foto-bareng.jpeg"); /* Pastikan nama file di GitHub sama */
+        background-size: cover;
+        background-position: center 30%;
+        min-height: 400px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      /* Overlay agar teks terbaca jelas */
+      .hero-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(to bottom, rgba(30, 58, 138, 0.7), rgba(15, 23, 42, 0.85));
+        z-index: 1;
+      }
+
+      .hero-content {
+        position: relative;
+        z-index: 2;
+      }
+
+      .btn-exam {
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .btn-exam:not(:disabled):hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+      }
+
+      .locked {
+        filter: grayscale(0.8);
+        opacity: 0.7;
+        cursor: not-allowed;
+      }
+    </style>
+  </head>
+  <body class="text-slate-800">
+    <!-- Header / Hero Section dengan Foto -->
+    <header class="hero-custom text-white py-16 px-4 shadow-2xl">
+      <div class="hero-overlay"></div>
+      <div class="max-w-5xl mx-auto text-center hero-content">
+        <div class="flex justify-center mb-6">
+          <div class="bg-white/20 backdrop-blur-md p-4 rounded-full border border-white/30 shadow-xl">
+            <i class="fas fa-university text-white text-5xl"></i>
+          </div>
+        </div>
+        <h1 class="text-4xl md:text-5xl font-extrabold mb-3 tracking-tight drop-shadow-lg">PORTAL SATBK 2026</h1>
+        <p class="text-xl md:text-2xl text-blue-100 font-medium drop-shadow-md">SMP Negeri 1 Manonjaya</p>
+        <p class="text-sm md:text-md text-blue-200 mt-1 uppercase tracking-widest">Kabupaten Tasikmalaya</p>
+
+        <div id="current-time-display" class="mt-8 inline-block bg-white/10 backdrop-blur-lg px-8 py-3 rounded-2xl border border-white/20 text-md font-mono font-bold shadow-inner">Memuat Waktu...</div>
+      </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-4 py-12">
+      <!-- Status Panel -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12 -mt-20 relative z-10">
+        <div class="glass-card p-6 rounded-3xl shadow-xl border-t-4 border-blue-600">
+          <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Status Server</h3>
+          <div class="flex items-center">
+            <div class="w-3 h-3 bg-green-500 rounded-full animate-pulse mr-2"></div>
+            <span class="font-bold text-lg text-slate-700">Sistem Online</span>
+          </div>
+        </div>
+        <div class="glass-card p-6 rounded-3xl shadow-xl border-t-4 border-amber-500">
+          <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Sesi Aktif</h3>
+          <div id="active-session-text" class="font-bold text-lg text-slate-700 italic">Mengecek Jadwal...</div>
+        </div>
+        <div class="glass-card p-6 rounded-3xl shadow-xl border-t-4 border-indigo-600">
+          <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Tahun Pelajaran</h3>
+          <div class="font-bold text-lg text-slate-700">2025 / 2026</div>
+        </div>
+      </div>
+
+      <!-- Judul Bagian -->
+      <div class="flex items-center justify-between mb-6 px-2">
+        <h2 class="text-2xl font-bold text-slate-800 flex items-center">
+          <span class="w-2 h-8 bg-blue-600 rounded-full mr-3"></span>
+          Pilih Tingkat Kelas Anda
+        </h2>
+      </div>
+
+      <!-- KELOMPOK TOMBOL KELAS 7 & KELAS 8 -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-12 px-2">
+        <!-- Tombol Kelas 7 -->
+        <button
+          id="btn-kelas-7"
+          onclick="selectClass(7)"
+          class="flex items-center justify-between bg-white border border-slate-200 text-slate-700 p-6 rounded-3xl shadow-md transition-all duration-300 transform hover:-translate-y-1 hover:shadow-xl group"
+        >
+          <div class="flex items-center space-x-4">
+            <div id="icon-container-7" class="bg-blue-50 text-blue-600 p-4 rounded-2xl group-hover:bg-blue-100 transition-all">
+              <i class="fas fa-user-graduate text-2xl"></i>
+            </div>
+            <div class="text-left">
+              <h3 id="title-text-7" class="font-extrabold text-xl tracking-wide text-slate-800">KELAS VII (7)</h3>
+              <p id="desc-text-7" class="text-xs text-slate-500 mt-1">Klik untuk membuka daftar ujian Kelas 7</p>
+            </div>
+          </div>
+          <div id="arrow-container-7" class="w-10 h-10 rounded-full bg-slate-50 text-slate-400 flex items-center justify-center group-hover:bg-slate-100 transition-all">
+            <i class="fas fa-chevron-right text-sm"></i>
+          </div>
+        </button>
+
+        <!-- Tombol Kelas 8 -->
+        <button
+          id="btn-kelas-8"
+          onclick="selectClass(8)"
+          class="flex items-center justify-between bg-white border border-slate-200 text-slate-700 p-6 rounded-3xl shadow-md transition-all duration-300 transform hover:-translate-y-1 hover:shadow-xl group"
+        >
+          <div class="flex items-center space-x-4">
+            <div id="icon-container-8" class="bg-emerald-50 text-emerald-600 p-4 rounded-2xl group-hover:bg-emerald-100 transition-all">
+              <i class="fas fa-user-graduate text-2xl"></i>
+            </div>
+            <div class="text-left">
+              <h3 id="title-text-8" class="font-extrabold text-xl tracking-wide text-slate-800">KELAS VIII (8)</h3>
+              <p id="desc-text-8" class="text-xs text-slate-500 mt-1">Klik untuk membuka daftar ujian Kelas 8</p>
+            </div>
+          </div>
+          <div id="arrow-container-8" class="w-10 h-10 rounded-full bg-slate-50 text-slate-400 flex items-center justify-center group-hover:bg-slate-100 transition-all">
+            <i class="fas fa-chevron-right text-sm"></i>
+          </div>
+        </button>
+      </div>
+
+      <!-- TEMPAT INFORMASI JIKA KELAS BELUM DIPILIH -->
+      <div id="class-not-selected-placeholder" class="text-center py-16 px-4 bg-slate-100/50 rounded-3xl border border-dashed border-slate-200 mb-12">
+        <div class="w-20 h-20 bg-slate-200/60 rounded-full flex items-center justify-center mx-auto mb-4 text-slate-400 text-3xl">
+          <i class="fas fa-arrow-up animate-bounce"></i>
+        </div>
+        <h3 class="text-lg font-bold text-slate-700">Jadwal Belum Ditampilkan</h3>
+        <p class="text-sm text-slate-500 mt-2 max-w-md mx-auto">
+          Silakan pilih tombol <span class="font-semibold text-blue-600">Kelas VII</span> atau <span class="font-semibold text-emerald-600">Kelas VIII</span> di atas terlebih dahulu untuk memunculkan daftar mata pelajaran ujian Anda.
+        </p>
+      </div>
+
+      <!-- KONTEN DAFTAR MATA PELAJARAN (Akan terbuka setelah kelas dipilih) -->
+      <div id="exam-section" class="hidden opacity-0 transition-all duration-700 ease-in-out">
+        <!-- Judul Bagian Jadwal -->
+        <div class="flex items-center justify-between mb-8 px-2">
+          <h2 id="exam-section-title" class="text-2xl font-bold text-slate-800 flex items-center">
+            <span class="w-2 h-8 bg-blue-600 rounded-full mr-3"></span>
+            Daftar Mata Pelajaran Hari Ini
+          </h2>
+        </div>
+
+        <!-- Exam Grid -->
+        <div id="exam-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+          <!-- JS Generated Content -->
+        </div>
+      </div>
+
+      <!-- Manual Override -->
+      <div class="mt-20 text-center">
+        <button onclick="openAdminModal()" class="bg-slate-200/50 hover:bg-slate-200 text-slate-500 text-[10px] px-4 py-2 rounded-full transition-all"><i class="fas fa-user-shield mr-1"></i> AKSES PROKTOR / ADMIN</button>
+      </div>
+    </main>
+
+    <footer class="bg-slate-900 text-slate-400 py-12 text-center">
+      <div class="max-w-4xl mx-auto px-4">
+        <p class="font-bold text-white mb-2 italic">"Pendidikan adalah senjata paling ampuh yang bisa digunakan untuk mengubah dunia."</p>
+        <p class="text-sm">&copy; 2026 SMP Negeri 1 Manonjaya. Dirancang untuk SATBK 2026.</p>
+        <div class="mt-6 flex justify-center space-x-4">
+          <div class="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center"><i class="fab fa-facebook-f text-xs"></i></div>
+          <div class="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center"><i class="fab fa-instagram text-xs"></i></div>
+          <div class="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center"><i class="fas fa-globe text-xs"></i></div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- MODAL CUSTOM ADMIN (PENGGANTI PROMPT/ALERT) -->
+    <div id="admin-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center hidden opacity-0 transition-opacity duration-300">
+      <div class="bg-white rounded-3xl shadow-2xl p-8 max-w-sm w-full mx-4 transform scale-95 transition-transform duration-300">
+        <div class="text-center mb-6">
+          <div class="w-16 h-16 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl">
+            <i class="fas fa-user-shield"></i>
+          </div>
+          <h3 class="text-xl font-bold text-slate-800">Akses Proktor</h3>
+          <p class="text-sm text-slate-500 mt-1">Masukkan PIN Pengawas untuk membuka akses darurat semua ujian.</p>
+        </div>
+
+        <div class="space-y-4">
+          <input
+            type="password"
+            id="admin-pin-input"
+            placeholder="Masukkan PIN"
+            class="w-full px-4 py-3 rounded-2xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-600 text-center font-mono text-lg tracking-widest"
+          />
+
+          <div id="modal-error-msg" class="text-red-500 text-xs text-center font-bold hidden">PIN yang Anda masukkan salah!</div>
+          <div id="modal-success-msg" class="text-green-500 text-xs text-center font-bold hidden">Akses Admin Berhasil Dikonfirmasi!</div>
+
+          <div class="flex space-x-3 pt-2">
+            <button onclick="closeAdminModal()" class="w-1/2 py-3 bg-slate-100 text-slate-600 font-bold rounded-2xl hover:bg-slate-200 transition-all text-sm">Batal</button>
+            <button onclick="submitAdminPin()" class="w-1/2 py-3 bg-blue-600 text-white font-bold rounded-2xl hover:bg-blue-700 shadow-lg shadow-blue-200 transition-all text-sm">Verifikasi</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // DATA JADWAL & LINK GFORM (Dipetakan Berdasarkan Kelas 7 & 8)
+      const examData = [
+        // DATA KELAS 7
+        { id: "paibp-7", grade: 7, name: "PAI-BP Kelas VII", date: "2026-06-08", start: "07:55", end: "09:05", link: "https://docs.google.com/forms/d/e/1FAIpQLScZYGRmK4E4TFinDyILbIAk55I9HwfQZ0UNmpRIMGr1CGu9GQ/viewform?usp=header" },
+        { id: "ppkn-7", grade: 7, name: "PPKn Kelas VII", date: "2026-06-08", start: "09:10", end: "10:20", link: "https://docs.google.com/forms/d/e/1FAIpQLSemZ-88gOdn3-jTqqrrYoBQEDUqphKKQduU7GLoFZpB83g7-g/viewform?usp=header" },
+        { id: "bing-7", grade: 7, name: "Bahasa Inggris Kelas VII", date: "2026-06-08", start: "10:40", end: "11:50", link: "https://docs.google.com/forms/d/e/1FAIpQLSdkQNTbobR8u63ZxUsPpK1ECN1F8vQA2WyFlr6Slyti5GELIQ/viewform?usp=header" },
+        { id: "ipa-7", grade: 7, name: "IPA Kelas VII", date: "2026-06-09", start: "07:55", end: "09:05", link: "https://docs.google.com/forms/d/e/1FAIpQLSd4h_mZz5ZO-6vgEQU-5ajzKLbsqkqfdStgp-5oPieYwpQ5kg/viewform?usp=header" },
+        {
+          id: "indo-7",
+          grade: 7,
+          name: "Bahasa Indonesia Kelas VII",
+          date: "2026-06-09",
+          start: "09:10",
+          end: "10:20",
+          link: "https://docs.google.com/forms/d/e/1FAIpQLSfri6lQK5mdODehV25tU1tLCP22P_7YEUSyYRHFHcMbHUPYTQ/viewform?usp=header",
+        },
+        { id: "tikt-7", grade: 7, name: "Informatika Kelas VII", date: "2026-06-09", start: "10:40", end: "11:50", link: "https://docs.google.com/forms/d/e/1FAIpQLSfD-e1uxXUuvFSSDslAbE2Ppum8D98SJRnyw75sSJiyaAWDJw/viewform?usp=header" },
+        { id: "mtk-7", grade: 7, name: "Matematika Kelas VII", date: "2026-06-10", start: "07:55", end: "09:05", link: "https://docs.google.com/forms/d/e/1FAIpQLSdCtKFRpdoEKPzWLx-HcnZLv8ACd66vnYHaOlYpc0IEww0vmA/viewform?usp=header" },
+        { id: "ips-7", grade: 7, name: "IPS Kelas VII", date: "2026-06-10", start: "09:10", end: "10:20", link: "https://docs.google.com/forms/d/e/1FAIpQLSfL9W2_noS1j5gVceD7CKd46vycXU6DjmA7vqdpj79F2jd-YA/viewform?usp=header" },
+        { id: "sunda-7", grade: 7, name: "Bahasa Sunda Kelas VII", date: "2026-06-10", start: "10:40", end: "11:50", link: "https://docs.google.com/forms/d/e/1FAIpQLSflXukIu2eAYllzipxG7XmA0XOYuhv-0e-3Ps0Xxx7KJwK01w/viewform?usp=header" },
+
+        // DATA KELAS 8 (Contoh link disamakan, bisa Anda sesuaikan jika link GForm Kelas 8 berbeda)
+        { id: "paibp-8", grade: 8, name: "PAI-BP Kelas VIII", date: "2026-06-08", start: "07:55", end: "09:05", link: "https://docs.google.com/forms/d/e/1FAIpQLSelPjyAtx0KmZrNgTCuNyd2LBH4wf4fL9QsKGQYOYXAOOjg5g/viewform?usp=header" },
+        { id: "ppkn-8", grade: 8, name: "PPKn Kelas VIII", date: "2026-06-08", start: "09:10", end: "10:20", link: "https://docs.google.com/forms/d/e/1FAIpQLSco8R16FEVeyw0roBswEoBfGB7hSmlkk22Yx2E8AzXiALs4Kw/viewform?usp=header" },
+        { id: "bing-8", grade: 8, name: "Bahasa Inggris Kelas VIII", date: "2026-06-08", start: "10:40", end: "11:50", link: "https://docs.google.com/forms/d/e/1FAIpQLSf3ga_GiqOETmWcRDvVZPS4JMnbcmXrK2sUkubsatEVWiQD_w/viewform?usp=header" },
+        { id: "ipa-8", grade: 8, name: "IPA Kelas VIII", date: "2026-06-09", start: "07:55", end: "09:05", link: "https://docs.google.com/forms/d/e/1FAIpQLSeFQW9-iGeSpkJuIe174raKZvzh-rSLMBoXx1U4alis3bKwJg/viewform?usp=header" },
+        {
+          id: "indo-8",
+          grade: 8,
+          name: "Bahasa Indonesia Kelas VIII",
+          date: "2026-06-09",
+          start: "09:10",
+          end: "10:20",
+          link: "https://docs.google.com/forms/d/e/1FAIpQLSfY6YzC8ZIhO3fnudqnPxJ5im8vF3xPe3nW09Q-RAXkXnOqCw/viewform?usp=header",
+        },
+        { id: "tikt-8", grade: 8, name: "Informatika Kelas VIII", date: "2026-06-09", start: "10:40", end: "11:50", link: "https://docs.google.com/forms/d/e/1FAIpQLSe86sFx_jGm2Be3PzVLLqO3hEHcDYgZhvfU61ThkbxFMADrzg/viewform?usp=header" },
+        { id: "mtk-8", grade: 8, name: "Matematika Kelas VIII", date: "2026-06-10", start: "07:55", end: "09:05", link: "https://docs.google.com/forms/d/e/1FAIpQLSdTA11ON8CCMgQeB-fwwzGdwtFQTRQEr7IWumB58aEItDNaEg/viewform?usp=header" },
+        { id: "ips-8", grade: 8, name: "IPS Kelas VIII", date: "2026-06-10", start: "09:10", end: "10:20", link: "https://docs.google.com/forms/d/e/1FAIpQLScOyT5q38HVrZQTp6lT4DGOlKA0s-Y-7q7yRRUPRiyvfSMaHQ/viewform?usp=header" },
+        { id: "sunda-8", grade: 8, name: "Bahasa Sunda Kelas VIII", date: "2026-06-10", start: "10:40", end: "11:50", link: "https://docs.google.com/forms/d/e/1FAIpQLScXrtVBvmmXW4zG-LycpnErgctYesxB2AiCavAORKe_6-2jjw/viewform?usp=header" },
+      ];
+
+      let adminMode = false;
+      let selectedGrade = null; // Menyimpan status kelas yang sedang aktif
+
+      function updateClock() {
+        const now = new Date();
+        const options = {
+          weekday: "long",
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+        };
+        document.getElementById("current-time-display").innerText = now.toLocaleDateString("id-ID", options);
+        checkExamStatus();
+      }
+
+      // Fungsi ketika tombol kelas dipilih
+      function selectClass(grade) {
+        selectedGrade = grade;
+
+        // Sembunyikan placeholder instruksi
+        document.getElementById("class-not-selected-placeholder").classList.add("hidden");
+
+        // Perbarui Judul Bagian Jadwal
+        const titleSpan = `<span class="w-2 h-8 bg-blue-600 rounded-full mr-3"></span>`;
+        document.getElementById("exam-section-title").innerHTML = `${titleSpan} Daftar Mata Pelajaran - Kelas ${grade === 7 ? "VII" : "VIII"}`;
+
+        // Aktifkan tampilan section dan beri animasi transisi opacity
+        const examSection = document.getElementById("exam-section");
+        examSection.classList.remove("hidden");
+        setTimeout(() => {
+          examSection.classList.remove("opacity-0");
+        }, 50);
+
+        // Perbarui style tombol agar kelihatan aktif yang mana
+        updateClassButtonStyles(grade);
+
+        // Render ulang daftar mata pelajaran berdasarkan filter kelas
+        checkExamStatus();
+
+        // Scroll otomatis secara halus ke daftar mata pelajaran
+        examSection.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+
+      function updateClassButtonStyles(activeGrade) {
+        const btn7 = document.getElementById("btn-kelas-7");
+        const btn8 = document.getElementById("btn-kelas-8");
+
+        const icon7 = document.getElementById("icon-container-7");
+        const icon8 = document.getElementById("icon-container-8");
+
+        const title7 = document.getElementById("title-text-7");
+        const title8 = document.getElementById("title-text-8");
+
+        const desc7 = document.getElementById("desc-text-7");
+        const desc8 = document.getElementById("desc-text-8");
+
+        const arrow7 = document.getElementById("arrow-container-7");
+        const arrow8 = document.getElementById("arrow-container-8");
+
+        if (activeGrade === 7) {
+          // Kelas 7 Aktif (Biru)
+          btn7.className = "flex items-center justify-between bg-gradient-to-r from-blue-600 to-indigo-600 text-white p-6 rounded-3xl shadow-xl transition-all duration-300 transform -translate-y-1";
+          icon7.className = "bg-white/10 p-4 rounded-2xl text-white";
+          title7.className = "font-extrabold text-xl tracking-wide text-white";
+          desc7.className = "text-xs text-blue-100 mt-1";
+          arrow7.className = "w-10 h-10 rounded-full bg-white/10 text-white flex items-center justify-center";
+
+          // Kembalikan Kelas 8 ke Default
+          btn8.className = "flex items-center justify-between bg-white border border-slate-200 text-slate-700 p-6 rounded-3xl shadow-md transition-all duration-300 transform hover:-translate-y-1 hover:shadow-xl group";
+          icon8.className = "bg-emerald-50 text-emerald-600 p-4 rounded-2xl group-hover:bg-emerald-100 transition-all";
+          title8.className = "font-extrabold text-xl tracking-wide text-slate-800";
+          desc8.className = "text-xs text-slate-500 mt-1";
+          arrow8.className = "w-10 h-10 rounded-full bg-slate-50 text-slate-400 flex items-center justify-center group-hover:bg-slate-100 transition-all";
+        } else {
+          // Kelas 8 Aktif (Hijau/Emerald)
+          btn8.className = "flex items-center justify-between bg-gradient-to-r from-emerald-600 to-teal-600 text-white p-6 rounded-3xl shadow-xl transition-all duration-300 transform -translate-y-1";
+          icon8.className = "bg-white/10 p-4 rounded-2xl text-white";
+          title8.className = "font-extrabold text-xl tracking-wide text-white";
+          desc8.className = "text-xs text-emerald-100 mt-1";
+          arrow8.className = "w-10 h-10 rounded-full bg-white/10 text-white flex items-center justify-center";
+
+          // Kembalikan Kelas 7 ke Default
+          btn7.className = "flex items-center justify-between bg-white border border-slate-200 text-slate-700 p-6 rounded-3xl shadow-md transition-all duration-300 transform hover:-translate-y-1 hover:shadow-xl group";
+          icon7.className = "bg-blue-50 text-blue-600 p-4 rounded-2xl group-hover:bg-blue-100 transition-all";
+          title7.className = "font-extrabold text-xl tracking-wide text-slate-800";
+          desc7.className = "text-xs text-slate-500 mt-1";
+          arrow7.className = "w-10 h-10 rounded-full bg-slate-50 text-slate-400 flex items-center justify-center group-hover:bg-slate-100 transition-all";
+        }
+      }
+
+      function checkExamStatus() {
+        if (selectedGrade === null) return; // Jangan jalankan jika belum ada kelas yang dipilih
+
+        const now = new Date();
+        const grid = document.getElementById("exam-grid");
+        let activeSessionFound = "Tidak ada sesi aktif";
+
+        grid.innerHTML = "";
+
+        // Saring jadwal ujian hanya yang sesuai dengan kelas pilihan siswa
+        const filteredExams = examData.filter((exam) => exam.grade === selectedGrade);
+
+        filteredExams.forEach((exam) => {
+          const examStart = new Date(`${exam.date}T${exam.start}:00`);
+          const examEnd = new Date(`${exam.date}T${exam.end}:00`);
+
+          const isOngoing = now >= examStart && now <= examEnd;
+          const isUpcoming = now < examStart;
+          const isFinished = now > examEnd;
+
+          let statusText = "";
+          let statusClass = "";
+          let btnDisabled = true;
+
+          if (isOngoing || adminMode) {
+            statusText = "Sesi Berlangsung";
+            statusClass = "text-green-600 bg-green-100";
+            btnDisabled = false;
+            activeSessionFound = exam.name;
+          } else if (isUpcoming) {
+            statusText = `Pukul ${exam.start}`;
+            statusClass = "text-blue-600 bg-blue-100";
+          } else {
+            statusText = "Selesai";
+            statusClass = "text-slate-400 bg-slate-100";
+          }
+
+          const card = document.createElement("div");
+          card.className = `glass-card p-6 rounded-3xl shadow-lg border border-slate-100 flex flex-col justify-between transition-all duration-300 ${!isOngoing && !adminMode ? "locked opacity-60" : "scale-100 hover:shadow-2xl"}`;
+
+          card.innerHTML = `
+                    <div>
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest ${statusClass}">
+                                ${statusText}
+                            </span>
+                            <div class="w-8 h-8 rounded-full flex items-center justify-center ${isOngoing ? "bg-amber-100 text-amber-600 animate-pulse" : "bg-slate-100 text-slate-400"}">
+                                <i class="fas ${isFinished ? "fa-check" : isOngoing ? "fa-edit" : "fa-lock"} text-sm"></i>
+                            </div>
+                        </div>
+                        <h2 class="text-xl font-bold text-slate-800 mb-1">${exam.name}</h2>
+                        <div class="text-xs text-slate-500 mb-6 space-y-1">
+                            <p><i class="far fa-calendar-alt mr-2"></i>${new Date(exam.date).toLocaleDateString("id-ID", { weekday: "long", day: "numeric", month: "short" })}</p>
+                            <p><i class="far fa-clock mr-2"></i>Sesi: ${exam.start} - ${exam.end}</p>
+                        </div>
+                    </div>
+                    <a href="${exam.link}" target="_blank" 
+                       class="btn-exam block text-center py-3 px-6 rounded-2xl font-bold transition-all
+                       ${btnDisabled ? "bg-slate-200 text-slate-400 pointer-events-none" : "bg-blue-600 text-white hover:bg-blue-700 shadow-lg shadow-blue-200"}"
+                       ${btnDisabled ? 'tabindex="-1"' : ""}>
+                       ${isFinished ? "Sesi Selesai" : isOngoing ? "Mulai Ujian" : "Belum Dibuka"}
+                    </a>
+                `;
+          grid.appendChild(card);
+        });
+
+        document.getElementById("active-session-text").innerText = activeSessionFound;
+      }
+
+      // KONTROL MODAL KUSTOM
+      const modal = document.getElementById("admin-modal");
+      const pinInput = document.getElementById("admin-pin-input");
+      const errorMsg = document.getElementById("modal-error-msg");
+      const successMsg = document.getElementById("modal-success-msg");
+
+      function openAdminModal() {
+        modal.classList.remove("hidden");
+        setTimeout(() => {
+          modal.classList.remove("opacity-0");
+          modal.querySelector("div").classList.remove("scale-95");
+        }, 10);
+        pinInput.focus();
+      }
+
+      function closeAdminModal() {
+        modal.classList.add("opacity-0");
+        modal.querySelector("div").classList.add("scale-95");
+        errorMsg.classList.add("hidden");
+        successMsg.classList.add("hidden");
+        pinInput.value = "";
+        setTimeout(() => {
+          modal.classList.add("hidden");
+        }, 300);
+      }
+
+      function submitAdminPin() {
+        if (pinInput.value === "2026") {
+          adminMode = !adminMode;
+          errorMsg.classList.add("hidden");
+          successMsg.classList.remove("hidden");
+          successMsg.innerText = adminMode ? "Mode Admin Aktif!" : "Mode Admin Nonaktif!";
+
+          setTimeout(() => {
+            closeAdminModal();
+            checkExamStatus();
+          }, 1200);
+        } else {
+          errorMsg.classList.remove("hidden");
+          pinInput.value = "";
+          pinInput.focus();
+        }
+      }
+
+      // Memproses tombol enter di kolom PIN
+      pinInput.addEventListener("keypress", function (event) {
+        if (event.key === "Enter") {
+          submitAdminPin();
+        }
+      });
+
+      setInterval(updateClock, 1000);
+      updateClock();
+    </script>
+  </body>
+</html>
