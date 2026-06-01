@@ -231,44 +231,184 @@
     <script>
       // DATA JADWAL & LINK GFORM (Dipetakan Berdasarkan Kelas 7 & 8)
       const examData = [
-        // DATA KELAS 7
-        { id: "paibp-7", grade: 7, name: "PAI-BP Kelas VII", date: "2026-06-08", start: "07:55", end: "09:05", link: "https://docs.google.com/forms/d/e/1FAIpQLScZYGRmK4E4TFinDyILbIAk55I9HwfQZ0UNmpRIMGr1CGu9GQ/viewform?usp=header" },
-        { id: "ppkn-7", grade: 7, name: "PPKn Kelas VII", date: "2026-06-08", start: "09:10", end: "10:20", link: "https://docs.google.com/forms/d/e/1FAIpQLSemZ-88gOdn3-jTqqrrYoBQEDUqphKKQduU7GLoFZpB83g7-g/viewform?usp=header" },
-        { id: "bing-7", grade: 7, name: "Bahasa Inggris Kelas VII", date: "2026-06-08", start: "10:40", end: "11:50", link: "https://docs.google.com/forms/d/e/1FAIpQLSdkQNTbobR8u63ZxUsPpK1ECN1F8vQA2WyFlr6Slyti5GELIQ/viewform?usp=header" },
-        { id: "ipa-7", grade: 7, name: "IPA Kelas VII", date: "2026-06-09", start: "07:55", end: "09:05", link: "https://docs.google.com/forms/d/e/1FAIpQLSd4h_mZz5ZO-6vgEQU-5ajzKLbsqkqfdStgp-5oPieYwpQ5kg/viewform?usp=header" },
-        {
-          id: "indo-7",
-          grade: 7,
-          name: "Bahasa Indonesia Kelas VII",
-          date: "2026-06-09",
-          start: "09:10",
-          end: "10:20",
-          link: "https://docs.google.com/forms/d/e/1FAIpQLSfri6lQK5mdODehV25tU1tLCP22P_7YEUSyYRHFHcMbHUPYTQ/viewform?usp=header",
-        },
-        { id: "tikt-7", grade: 7, name: "Informatika Kelas VII", date: "2026-06-09", start: "10:40", end: "11:50", link: "https://docs.google.com/forms/d/e/1FAIpQLSfD-e1uxXUuvFSSDslAbE2Ppum8D98SJRnyw75sSJiyaAWDJw/viewform?usp=header" },
-        { id: "mtk-7", grade: 7, name: "Matematika Kelas VII", date: "2026-06-10", start: "07:55", end: "09:05", link: "https://docs.google.com/forms/d/e/1FAIpQLSdCtKFRpdoEKPzWLx-HcnZLv8ACd66vnYHaOlYpc0IEww0vmA/viewform?usp=header" },
-        { id: "ips-7", grade: 7, name: "IPS Kelas VII", date: "2026-06-10", start: "09:10", end: "10:20", link: "https://docs.google.com/forms/d/e/1FAIpQLSfL9W2_noS1j5gVceD7CKd46vycXU6DjmA7vqdpj79F2jd-YA/viewform?usp=header" },
-        { id: "sunda-7", grade: 7, name: "Bahasa Sunda Kelas VII", date: "2026-06-10", start: "10:40", end: "11:50", link: "https://docs.google.com/forms/d/e/1FAIpQLSflXukIu2eAYllzipxG7XmA0XOYuhv-0e-3Ps0Xxx7KJwK01w/viewform?usp=header" },
+  // =====================
+  // KELAS VII
+  // =====================
+  {
+    id: "paibp-7",
+    grade: 7,
+    name: "PAI-BP Kelas VII",
+    date: "2026-06-02",
+    start: "08:00",
+    end: "09:30",
+    link: "https://docs.google.com/forms/d/e/1FAIpQLScZYGRmK4E4TFinDyILbIAk55I9HwfQZ0UNmpRIMGr1CGu9GQ/viewform?usp=header"
+  },
+  {
+    id: "ppkn-7",
+    grade: 7,
+    name: "PPKn Kelas VII",
+    date: "2026-06-02",
+    start: "10:00",
+    end: "11:30",
+    link: "https://docs.google.com/forms/d/e/1FAIpQLSemZ-88gOdn3-jTqqrrYoBQEDUqphKKQduU7GLoFZpB83g7-g/viewform?usp=header"
+  },
 
-        // DATA KELAS 8 (Contoh link disamakan, bisa Anda sesuaikan jika link GForm Kelas 8 berbeda)
-        { id: "paibp-8", grade: 8, name: "PAI-BP Kelas VIII", date: "2026-06-08", start: "07:55", end: "09:05", link: "https://docs.google.com/forms/d/e/1FAIpQLSelPjyAtx0KmZrNgTCuNyd2LBH4wf4fL9QsKGQYOYXAOOjg5g/viewform?usp=header" },
-        { id: "ppkn-8", grade: 8, name: "PPKn Kelas VIII", date: "2026-06-08", start: "09:10", end: "10:20", link: "https://docs.google.com/forms/d/e/1FAIpQLSco8R16FEVeyw0roBswEoBfGB7hSmlkk22Yx2E8AzXiALs4Kw/viewform?usp=header" },
-        { id: "bing-8", grade: 8, name: "Bahasa Inggris Kelas VIII", date: "2026-06-08", start: "10:40", end: "11:50", link: "https://docs.google.com/forms/d/e/1FAIpQLSf3ga_GiqOETmWcRDvVZPS4JMnbcmXrK2sUkubsatEVWiQD_w/viewform?usp=header" },
-        { id: "ipa-8", grade: 8, name: "IPA Kelas VIII", date: "2026-06-09", start: "07:55", end: "09:05", link: "https://docs.google.com/forms/d/e/1FAIpQLSeFQW9-iGeSpkJuIe174raKZvzh-rSLMBoXx1U4alis3bKwJg/viewform?usp=header" },
-        {
-          id: "indo-8",
-          grade: 8,
-          name: "Bahasa Indonesia Kelas VIII",
-          date: "2026-06-09",
-          start: "09:10",
-          end: "10:20",
-          link: "https://docs.google.com/forms/d/e/1FAIpQLSfY6YzC8ZIhO3fnudqnPxJ5im8vF3xPe3nW09Q-RAXkXnOqCw/viewform?usp=header",
-        },
-        { id: "tikt-8", grade: 8, name: "Informatika Kelas VIII", date: "2026-06-09", start: "10:40", end: "11:50", link: "https://docs.google.com/forms/d/e/1FAIpQLSe86sFx_jGm2Be3PzVLLqO3hEHcDYgZhvfU61ThkbxFMADrzg/viewform?usp=header" },
-        { id: "mtk-8", grade: 8, name: "Matematika Kelas VIII", date: "2026-06-10", start: "07:55", end: "09:05", link: "https://docs.google.com/forms/d/e/1FAIpQLSdTA11ON8CCMgQeB-fwwzGdwtFQTRQEr7IWumB58aEItDNaEg/viewform?usp=header" },
-        { id: "ips-8", grade: 8, name: "IPS Kelas VIII", date: "2026-06-10", start: "09:10", end: "10:20", link: "https://docs.google.com/forms/d/e/1FAIpQLScOyT5q38HVrZQTp6lT4DGOlKA0s-Y-7q7yRRUPRiyvfSMaHQ/viewform?usp=header" },
-        { id: "sunda-8", grade: 8, name: "Bahasa Sunda Kelas VIII", date: "2026-06-10", start: "10:40", end: "11:50", link: "https://docs.google.com/forms/d/e/1FAIpQLScXrtVBvmmXW4zG-LycpnErgctYesxB2AiCavAORKe_6-2jjw/viewform?usp=header" },
-      ];
+  {
+    id: "indo-7",
+    grade: 7,
+    name: "Bahasa Indonesia Kelas VII",
+    date: "2026-06-03",
+    start: "08:00",
+    end: "09:30",
+    link: "https://docs.google.com/forms/d/e/1FAIpQLSfri6lQK5mdODehV25tU1tLCP22P_7YEUSyYRHFHcMbHUPYTQ/viewform?usp=header"
+  },
+  {
+    id: "ips-7",
+    grade: 7,
+    name: "IPS Kelas VII",
+    date: "2026-06-03",
+    start: "10:00",
+    end: "11:30",
+    link: "https://docs.google.com/forms/d/e/1FAIpQLSfL9W2_noS1j5gVceD7CKd46vycXU6DjmA7vqdpj79F2jd-YA/viewform?usp=header"
+  },
+
+  {
+    id: "ipa-7",
+    grade: 7,
+    name: "IPA Kelas VII",
+    date: "2026-06-04",
+    start: "08:00",
+    end: "09:30",
+    link: "https://docs.google.com/forms/d/e/1FAIpQLSd4h_mZz5ZO-6vgEQU-5ajzKLbsqkqfdStgp-5oPieYwpQ5kg/viewform?usp=header"
+  },
+  {
+    id: "sunda-7",
+    grade: 7,
+    name: "Bahasa Sunda Kelas VII",
+    date: "2026-06-04",
+    start: "10:00",
+    end: "11:30",
+    link: "https://docs.google.com/forms/d/e/1FAIpQLSflXukIu2eAYllzipxG7XmA0XOYuhv-0e-3Ps0Xxx7KJwK01w/viewform?usp=header"
+  },
+
+  {
+    id: "mtk-7",
+    grade: 7,
+    name: "Matematika Kelas VII",
+    date: "2026-06-05",
+    start: "08:00",
+    end: "09:30",
+    link: "https://docs.google.com/forms/d/e/1FAIpQLSdCtKFRpdoEKPzWLx-HcnZLv8ACd66vnYHaOlYpc0IEww0vmA/viewform?usp=header"
+  },
+
+  {
+    id: "bing-7",
+    grade: 7,
+    name: "Bahasa Inggris Kelas VII",
+    date: "2026-06-08",
+    start: "08:00",
+    end: "09:30",
+    link: "https://docs.google.com/forms/d/e/1FAIpQLSdkQNTbobR8u63ZxUsPpK1ECN1F8vQA2WyFlr6Slyti5GELIQ/viewform?usp=header"
+  },
+  {
+    id: "tikt-7",
+    grade: 7,
+    name: "Informatika Kelas VII",
+    date: "2026-06-08",
+    start: "10:00",
+    end: "11:30",
+    link: "https://docs.google.com/forms/d/e/1FAIpQLSfD-e1uxXUuvFSSDslAbE2Ppum8D98SJRnyw75sSJiyaAWDJw/viewform?usp=header"
+  },
+
+  // =====================
+  // KELAS VIII
+  // =====================
+  {
+    id: "paibp-8",
+    grade: 8,
+    name: "PAI-BP Kelas VIII",
+    date: "2026-06-02",
+    start: "08:00",
+    end: "09:30",
+    link: "https://docs.google.com/forms/d/e/1FAIpQLSelPjyAtx0KmZrNgTCuNyd2LBH4wf4fL9QsKGQYOYXAOOjg5g/viewform?usp=header"
+  },
+  {
+    id: "ppkn-8",
+    grade: 8,
+    name: "PPKn Kelas VIII",
+    date: "2026-06-02",
+    start: "10:00",
+    end: "11:30",
+    link: "https://docs.google.com/forms/d/e/1FAIpQLSco8R16FEVeyw0roBswEoBfGB7hSmlkk22Yx2E8AzXiALs4Kw/viewform?usp=header"
+  },
+
+  {
+    id: "indo-8",
+    grade: 8,
+    name: "Bahasa Indonesia Kelas VIII",
+    date: "2026-06-03",
+    start: "08:00",
+    end: "09:30",
+    link: "https://docs.google.com/forms/d/e/1FAIpQLSfY6YzC8ZIhO3fnudqnPxJ5im8vF3xPe3nW09Q-RAXkXnOqCw/viewform?usp=header"
+  },
+  {
+    id: "ips-8",
+    grade: 8,
+    name: "IPS Kelas VIII",
+    date: "2026-06-03",
+    start: "10:00",
+    end: "11:30",
+    link: "https://docs.google.com/forms/d/e/1FAIpQLScOyT5q38HVrZQTp6lT4DGOlKA0s-Y-7q7yRRUPRiyvfSMaHQ/viewform?usp=header"
+  },
+
+  {
+    id: "ipa-8",
+    grade: 8,
+    name: "IPA Kelas VIII",
+    date: "2026-06-04",
+    start: "08:00",
+    end: "09:30",
+    link: "https://docs.google.com/forms/d/e/1FAIpQLSeFQW9-iGeSpkJuIe174raKZvzh-rSLMBoXx1U4alis3bKwJg/viewform?usp=header"
+  },
+  {
+    id: "sunda-8",
+    grade: 8,
+    name: "Bahasa Sunda Kelas VIII",
+    date: "2026-06-04",
+    start: "10:00",
+    end: "11:30",
+    link: "https://docs.google.com/forms/d/e/1FAIpQLScXrtVBvmmXW4zG-LycpnErgctYesxB2AiCavAORKe_6-2jjw/viewform?usp=header"
+  },
+
+  {
+    id: "mtk-8",
+    grade: 8,
+    name: "Matematika Kelas VIII",
+    date: "2026-06-05",
+    start: "08:00",
+    end: "09:30",
+    link: "https://docs.google.com/forms/d/e/1FAIpQLSdTA11ON8CCMgQeB-fwwzGdwtFQTRQEr7IWumB58aEItDNaEg/viewform?usp=header"
+  },
+
+  {
+    id: "bing-8",
+    grade: 8,
+    name: "Bahasa Inggris Kelas VIII",
+    date: "2026-06-08",
+    start: "08:00",
+    end: "09:30",
+    link: "https://docs.google.com/forms/d/e/1FAIpQLSf3ga_GiqOETmWcRDvVZPS4JMnbcmXrK2sUkubsatEVWiQD_w/viewform?usp=header"
+  },
+  {
+    id: "tikt-8",
+    grade: 8,
+    name: "Informatika Kelas VIII",
+    date: "2026-06-08",
+    start: "10:00",
+    end: "11:30",
+    link: "https://docs.google.com/forms/d/e/1FAIpQLSe86sFx_jGm2Be3PzVLLqO3hEHcDYgZhvfU61ThkbxFMADrzg/viewform?usp=header"
+  }
+];
 
       let adminMode = false;
       let selectedGrade = null; // Menyimpan status kelas yang sedang aktif
